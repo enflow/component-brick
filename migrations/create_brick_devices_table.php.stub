@@ -10,7 +10,7 @@ class CreateBrickDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('push_devices', function (Blueprint $table) {
+        Schema::create('brick_devices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->foreign('user_id')->references('id')->on('users');
@@ -24,6 +24,6 @@ class CreateBrickDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('push_devices');
+        Schema::drop('brick_devices');
     }
 }
