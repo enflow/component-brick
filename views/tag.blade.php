@@ -15,8 +15,18 @@
             message = JSON.parse(message);
             payload = JSON.parse(payload);
 
-            $.post('/brick/receiver', {message: message, payload: payload, '_token': '{{ csrf_token() }}'}, function (data) {
-            });
+            if (!message || !payload) {
+                return {};
+            }
+
+            postData = {message: message, payload: payload, '_token': '{{ csrf_token() }}'};
+
+            $.post('/brick/receiver', postData)
+                .fail(function(xhr, status, error) {
+                    alert('Something went wrong: '+ xhr.responseText);
+                });
+
+            return postData;
         }
     };
 

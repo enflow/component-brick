@@ -3,7 +3,7 @@
 namespace Enflow\Component\Brick\Messages;
 
 use Enflow\Component\Brick\BrickMessage;
-use Enflow\Component\Brick\Models\PushDevice;
+use Enflow\Component\Brick\Models\BrickDevice;
 
 class RequestPushDeviceId extends BrickMessage
 {
