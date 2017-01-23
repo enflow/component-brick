@@ -1,0 +1,25 @@
+{
+    "name": "enflow/component-brick",
+    "description": "Brick package that will add utils to make it easier to work together with the phonegap implemenation.",
+    "authors": [
+        {
+            "name": "Michel Bardelmeijer",
+            "email": "michel@enflow.nl"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://satis.enflow.nl/"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "laravel/framework": "5.3.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Enflow\\Component\\Brick\\": "src/"
+        }
+    }
+}
