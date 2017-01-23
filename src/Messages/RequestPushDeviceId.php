@@ -17,7 +17,5 @@ class RequestPushDeviceId extends BrickMessage
             'user_id' => auth()->id(),
             'device_id' => $payload['deviceId'],
         ]);
-
-        session()->put('brickGotDeviceId', true);
     }
 }
