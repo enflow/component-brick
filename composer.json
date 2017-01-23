@@ -20,6 +20,9 @@
     "autoload": {
         "psr-4": {
             "Enflow\\Component\\Brick\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     }
 }
