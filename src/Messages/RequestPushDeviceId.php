@@ -3,7 +3,7 @@
 namespace Enflow\Component\Brick\Messages;
 
 use Enflow\Component\Brick\BrickMessage;
-use Enflow\Component\Brick\Models\BrickDevice;
+use Enflow\Component\Brick\Models\PushDevice;
 
 class RequestPushDeviceId extends BrickMessage
 {
@@ -17,5 +17,7 @@ class RequestPushDeviceId extends BrickMessage
             'user_id' => auth()->id(),
             'device_id' => $payload['deviceId'],
         ]);
+
+        session()->put('brickGotDeviceId', true);
     }
 }

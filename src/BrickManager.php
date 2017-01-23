@@ -13,9 +13,8 @@ class BrickManager
         }
 
         $message = session()->get('brick_message') ?? session()->get('brickMessage');
-        if (empty($message) && !session()->has('brickAskedForPushDeviceId') && auth()->check()) {
+        if (empty($message) && !session()->has('brickGotDeviceId') && auth()->check()) {
             $message = RequestPushDeviceId::write();
-            session()->put('brickAskedForPushDeviceId', true);
         }
 
         $receiver = route('brick.receiver');
