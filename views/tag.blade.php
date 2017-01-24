@@ -39,8 +39,12 @@
     @endif
 
     $(function () {
-        $(document).on('click', 'a[href^="http"]', function (e) {
+        $(document).on('click', 'a[href^="http"], a[target="_blank"]', function (e) {
             var url = $(this).attr('href');
+            if (url.indexOf('http://') == -1 && url.indexOf('https://') == -1) {
+                url = location.protocol + '//' + location.host + url;
+            }
+
             brick.send({
                 'id': 'openBrowser',
                 'url': url
