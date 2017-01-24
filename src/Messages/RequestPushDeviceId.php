@@ -13,9 +13,10 @@ class RequestPushDeviceId extends BrickMessage
             return;
         }
 
-        BrickDevice::firstOrCreate([
-            'user_id' => auth()->id(),
+        $brickDevice = BrickDevice::firstOrNew([
             'device_id' => $payload['deviceId'],
         ]);
+        $brickDevice->user_id = auth()->id();
+        $brickDevice->save();
     }
 }

@@ -22,8 +22,12 @@
             postData = {message: message, payload: payload, '_token': '{{ csrf_token() }}'};
 
             $.post('/brick/receiver', postData)
-                .fail(function(xhr, status, error) {
-                    alert('Something went wrong: '+ xhr.responseText);
+                .fail(function (xhr, status, error) {
+                    if (xhr.statusText == 'abort') {
+                        return;
+                    }
+
+                    alert('Something went wrong: ' + xhr.responseText);
                 });
 
             return postData;
