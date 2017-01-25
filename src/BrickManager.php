@@ -24,6 +24,6 @@ class BrickManager
 
     public function onDevice(): bool
     {
-        return (bool) session()->get('brickDevice');
+        return (bool) str_contains(request()->header('User-Agent'), ['Enflow', 'Brick']);
     }
 }

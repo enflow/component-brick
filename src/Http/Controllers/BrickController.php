@@ -9,8 +9,6 @@ class BrickController extends BaseController
 {
     public function index(Request $request)
     {
-        session()->set('brickDevice', true);
-
         return redirect($request->get('intended', '/'));
     }
 
