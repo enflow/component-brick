@@ -40,7 +40,7 @@
 
     $(function () {
         jQuery.expr[':'].external = function(obj) {
-            return !obj.href.match(/^mailto\:/) && (obj.hostname != location.hostname);
+            return obj.href && !obj.href.match(/^mailto\:/) && (obj.hostname != location.hostname);
         };
 
         $(document).on('click', 'a:external, a[target="_blank"], a.js-brick-open-browser', function (e) {
