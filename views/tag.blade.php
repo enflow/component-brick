@@ -40,13 +40,13 @@
 
     $(function () {
         jQuery.expr[':'].external = function(obj) {
-            return obj.href && !obj.href.match(/^mailto\:/) && (obj.hostname != location.hostname);
+            return obj.href && !obj.href.match(/^tel\:/) && !obj.href.match(/^mailto\:/) && (obj.hostname != location.hostname);
         };
 
         $(document).on('click', 'a:external, a[target="_blank"], a.js-brick-open-browser', function (e) {
             var url = $(this).attr('href');
-            if (url.indexOf('http://') == -1 && url.indexOf('https://') == -1) {
-                url = location.protocol + '//' + location.host + url;
+            if (!/^[a-z][a-z0-9+.-]*:/.test(url)) {
+                url = location.protocol + '//' + location.host + '/' + url.replace(/^\//g, '');
             }
 
             brick.send({
