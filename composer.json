@@ -14,14 +14,21 @@
         }
     ],
     "require": {
-        "php": "^7.0",
-        "illuminate/support": "~5.3.0|~5.4.0",
-        "illuminate/routing": "~5.3.0|~5.4.0",
-        "illuminate/database": "~5.3.0|~5.4.0"
+        "php": "^7.1",
+        "illuminate/support": "^5.4",
+        "illuminate/routing": "^5.4",
+        "illuminate/database": "^5.4"
     },
     "autoload": {
         "psr-4": {
             "Enflow\\Component\\Brick\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Enflow\\Component\\Brick\\ServiceProvider"
+            ]
         }
     }
 }

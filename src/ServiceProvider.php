@@ -12,7 +12,7 @@ class ServiceProvider extends IlluminateServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../views', 'brick');
 
-        app()->singleton(BrickManager::class);
+        $this->app->singleton(BrickManager::class);
 
         View::composer('*', function ($view) {
             $view->with('brickManager', app(BrickManager::class));
