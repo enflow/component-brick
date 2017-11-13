@@ -3,8 +3,9 @@
 namespace Enflow\Component\Brick;
 
 use Illuminate\Support\Str;
+use JsonSerializable;
 
-abstract class BrickMessage implements \JsonSerializable
+abstract class BrickMessage implements JsonSerializable
 {
     public $payload;
 
@@ -20,7 +21,7 @@ abstract class BrickMessage implements \JsonSerializable
     public function jsonSerialize()
     {
         return array_merge([
-            'id' => Str::camel(substr(strrchr(static::class, "\\"), 1)),
+            'id' => $this->id(),
         ], $this->payload);
     }
 
@@ -32,5 +33,10 @@ abstract class BrickMessage implements \JsonSerializable
     public static function make()
     {
         return new static();
+    }
+
+    public function id()
+    {
+        return Str::camel(substr(strrchr(static::class, "\\"), 1));
     }
 }
