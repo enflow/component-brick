@@ -18,5 +18,7 @@ class RequestPushDeviceId extends BrickMessage
         ]);
         $brickDevice->user_id = auth()->id();
         $brickDevice->save();
+
+        session()->put('brickRequestPushDeviceReceived', true);
     }
 }

@@ -10,7 +10,6 @@
 
         var requestedMessage = '{{ $message ? $message->id() : '' }}';
         if (requestedMessage === '' || message.id !== requestedMessage) {
-            alert('Didnt ask for message with payload ' + requestedMessage + '/' + payload);
             return;
         }
 
@@ -22,7 +21,7 @@
                     return;
                 }
 
-                alert('Something went wrong: ' + xhr.responseText);
+                console.error('Something went wrong: ' + xhr.responseText);
             });
 
         return postData;
