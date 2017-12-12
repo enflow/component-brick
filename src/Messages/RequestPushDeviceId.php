@@ -9,14 +9,16 @@ class RequestPushDeviceId extends BrickMessage
 {
     public function response(array $payload)
     {
-        if (!auth()->check() || empty($payload['deviceId'])) {
+        $user = app('brick.user');
+
+        if (empty($user) || empty($payload['deviceId'])) {
             return;
         }
 
         $brickDevice = BrickDevice::firstOrNew([
             'device_id' => $payload['deviceId'],
         ]);
-        $brickDevice->user_id = auth()->id();
+        $brickDevice->user_id = $user->id;
         $brickDevice->save();
 
         session()->put('brickRequestPushDeviceReceived', true);

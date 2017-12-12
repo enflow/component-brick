@@ -28,6 +28,13 @@ class ServiceProvider extends IlluminateServiceProvider
         }
     }
 
+    public function register()
+    {
+        $this->app->bind('brick.user', function () {
+            return auth()->check() ? auth()->user() : null;
+        });
+    }
+
     private function registerRoutes()
     {
         Route::group([
