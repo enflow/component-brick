@@ -10,6 +10,10 @@ class ServiceProvider extends IlluminateServiceProvider
 {
     public function boot()
     {
+        $this->publishes([
+            __DIR__.'/../config/brick.php' => config_path('brick.php'),
+        ], 'config');
+
         $this->loadViewsFrom(__DIR__.'/../views', 'brick');
 
         $this->app->singleton(BrickManager::class);
@@ -30,6 +34,8 @@ class ServiceProvider extends IlluminateServiceProvider
 
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/brick.php', 'brick');
+
         $this->app->bind('brick.user', function () {
             return auth()->check() ? auth()->user() : null;
         });
