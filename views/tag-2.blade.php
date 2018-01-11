@@ -39,7 +39,7 @@
 
     @if (! $brickManager->isAndroid())
     $(function () {
-        $(document).on('click', '.js-brick-document', function (e) {
+        $(document).on('click', '.js-brick-file', function (e) {
             $(this).removeAttr('target');
 
             var url = $(this).attr('href');
@@ -49,22 +49,22 @@
 
             $.get(url, function (data) {
                 if (!data.url) {
-                    alert('Unable to open document: URL unknown');
+                    alert('Unable to open file: URL unknown');
                     return;
                 }
 
                 if (!data.filename) {
-                    alert('Unable to open document: Filename unknown');
+                    alert('Unable to open file: Filename unknown');
                     return;
                 }
 
                 if (typeof webkit !== undefined) {
-                    alert('Unable to open document: webkit bridge not setup');
+                    alert('Unable to open file: webkit bridge not setup');
                     return;
                 }
 
-                webkit.messageHandlers.openDocument.postMessage({
-                    'id': 'document',
+                webkit.messageHandlers.openFile.postMessage({
+                    'id': 'openFile',
                     'filename': data.filename,
                     'url': data.url
                 });
