@@ -58,7 +58,7 @@
                     return;
                 }
 
-                if (typeof webkit !== undefined) {
+                if (typeof webkit === undefined) {
                     alert('Unable to open file: webkit bridge not setup');
                     return;
                 }
