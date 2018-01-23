@@ -32,7 +32,7 @@
     brick.{{ $message->id() }}('{!! json_encode($message) !!}');
     @else
     if (typeof webkit !== undefined) {
-        webkit.messageHandlers.{{ $message->id() }}.postMessage('{!! json_encode($message) !!}');
+        webkit.messageHandlers.{{ $message->id() }}.postMessage({!! json_encode($message) !!});
     }
     @endif
     @endif
@@ -72,6 +72,11 @@
 
             return false;
         });
+
+        var $autofocus = $('input[autofocus]');
+        if ($autofocus.length) {
+            window.scrollTo(0, $autofocus.offset().top - 100);
+        }
     });
     @endif
 </script>
