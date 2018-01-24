@@ -73,7 +73,7 @@
             return false;
         });
 
-        var $autofocus = $('input[autofocus]');
+        var $autofocus = $(':input[autofocus]');
         if ($autofocus.length) {
             window.scrollTo(0, $autofocus.offset().top - 100);
         }
