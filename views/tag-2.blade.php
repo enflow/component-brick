@@ -31,7 +31,7 @@
     @if ($brickManager->isAndroid())
     brick.{{ $message->id() }}('{!! json_encode($message) !!}');
     @else
-    if (typeof webkit !== undefined) {
+    if (typeof webkit !== "undefined") {
         webkit.messageHandlers.{{ $message->id() }}.postMessage({!! json_encode($message) !!});
     }
     @endif
@@ -58,7 +58,7 @@
                     return;
                 }
 
-                if (typeof webkit === undefined) {
+                if (typeof webkit === "undefined") {
                     alert('Unable to open file: webkit bridge not setup');
                     return;
                 }
