@@ -1,5 +1,6 @@
+{{-- Example: brickReceiver('{"id":"requestPushDeviceId"}', '{"name":"iPhone van Michel","deviceId":"b6682166-5070-4dc7-9ab3-05c20dd5c1e9"}') --}}
+
 <script>
-    // Example: brickReceiver('{"id":"requestPushDeviceId"}', '{"name":"iPhone van Michel","deviceId":"b6682166-5070-4dc7-9ab3-05c20dd5c1e9"}')
     var brickReceiver = function (message, payload) {
         message = JSON.parse(message);
         payload = JSON.parse(payload);
