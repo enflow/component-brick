@@ -39,4 +39,9 @@ class BrickManager
     {
         return (bool)str_contains(request()->header('User-Agent'), ['Android']);
     }
+
+    public function isIos(): bool
+    {
+        return (bool)str_contains(request()->header('User-Agent'), ['iPad', 'iPhone', 'iPod']);
+    }
 }

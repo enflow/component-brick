@@ -1,4 +1,4 @@
-{{-- Example: brickReceiver('{"id":"requestPushDeviceId"}', '{"name":"iPhone van Michel","deviceId":"b6682166-5070-4dc7-9ab3-05c20dd5c1e9"}') --}}
+{{-- Example: brickReceiver('{"id":"requestPushDeviceId"}', '{"name":"iPhone","deviceId":"b6682166-5070-4dc7-9ab3-05c20dd5c1e9"}') --}}
 
 <script>
     var brickReceiver = function (message, payload) {
@@ -18,7 +18,7 @@
 
         $.post('/brick/receiver', postData)
             .fail(function (xhr, status, error) {
-                if (xhr.statusText == 'abort') {
+                if (xhr.statusText === 'abort') {
                     return;
                 }
 
