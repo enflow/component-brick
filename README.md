@@ -15,7 +15,7 @@ composer require enflow/component-brick
 ### Migrations
 This package includes a migration that needs to be published. This table (`brick_devices`) includes the mapping between the user and the hardware UUID of the iOS or Android device required for push notifications. New devices will be automatically assigned to the user. You can publish this migration by running:
 
-`php artisan vendor:publish --provider="Enflow\Component\Brick\ServiceProvider"`
+`php artisan vendor:publish --provider="Enflow\Component\Brick\BrickServiceProvider"`
 
 ## Usage
 This package adds the `BrickManager` class to the container and injects a `$brickManager` variable to all views. This variable can be used to render the required tag automatically. We recommend adding this to the end of the master template, just before the `</body>`:
