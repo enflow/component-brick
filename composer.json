@@ -1,7 +1,7 @@
 {
     "name": "enflow/component-brick",
     "description": "Brick package that will add utils to make it easier to work together with the phonegap implemenation.",
-    "license": "Proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Michel Bardelmeijer",
