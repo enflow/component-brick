@@ -1,26 +1,15 @@
 # Connect with the Brick framework
 
-The `enflow/component-brick` package provides the logic to connect to the iOS and Android side of the Brick framework. This package includes a tag that can be included in the templates which makes Javascript functions available which the iOS and Android app use.
+The `enflow/component-brick` package provides the logic to connect to the iOS and Android side of the Brick framework. **Brick is meant to be used as the server-side variant of the Brick framework. See "Whats Brick"**
+
+## What's Brick
+Brick is Enflow's framework to create hybrid iOS and Android apps. These wrappers communicate with the server side trough a JavaScript bridge. This package writes a tag to your application that those native wrappers communicate with. The primary function of this package is to support push notifications by fetching the device ID from the device and write it to a table.
 
 ## Installation
-You can install the package via composer when there is access to the Enflow satis environment:
+You can install the package via composer:
 
 ``` bash
 composer require enflow/component-brick
-```
-
-### Alternative
-Install the package in a sub-directory and use the composer `path` VCS logic by adding the following to your `composer.json` file:
-```
-"repositories": [
-    {
-        "type": "path",
-        "url": "component-brick/"
-    }
-],
-"require": {
-    "enflow/component-brick": "*"
-}
 ```
 
 ### Migrations

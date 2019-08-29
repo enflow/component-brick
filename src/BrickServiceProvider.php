@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
-class ServiceProvider extends IlluminateServiceProvider
+class BrickServiceProvider extends IlluminateServiceProvider
 {
     public function boot()
     {
