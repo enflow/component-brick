@@ -2,6 +2,7 @@
 
 namespace Enflow\Component\Brick;
 
+use Illuminate\Support\Str;
 use Enflow\Component\Brick\Messages\RequestPushDeviceId;
 
 class BrickManager
@@ -27,21 +28,21 @@ class BrickManager
 
     public function onDevice(): bool
     {
-        return (bool)str_contains(request()->header('User-Agent'), ['Enflow', 'Brick']);
+        return (bool)Str::contains(request()->header('User-Agent'), ['Enflow', 'Brick']);
     }
 
     public function version()
     {
-        return ends_with(request()->header('User-Agent'), '2.0') ? static::VERSION_20 : static::VERSION_10;
+        return Str::endsWith(request()->header('User-Agent'), '2.0') ? static::VERSION_20 : static::VERSION_10;
     }
 
     public function isAndroid(): bool
     {
-        return (bool)str_contains(request()->header('User-Agent'), ['Android']);
+        return (bool)Str::contains(request()->header('User-Agent'), ['Android']);
     }
 
     public function isIos(): bool
     {
-        return (bool)str_contains(request()->header('User-Agent'), ['iPad', 'iPhone', 'iPod']);
+        return (bool)Str::contains(request()->header('User-Agent'), ['iPad', 'iPhone', 'iPod']);
     }
 }
