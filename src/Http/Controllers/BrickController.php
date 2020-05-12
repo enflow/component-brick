@@ -9,7 +9,7 @@ class BrickController extends BaseController
 {
     public function index(Request $request)
     {
-        return redirect($request->get('intended', '/'));
+        return redirect($request->get('intended', config('brick.home_url', '/')));
     }
 
     public function receiver(Request $request)
