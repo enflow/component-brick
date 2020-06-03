@@ -1,6 +1,6 @@
 {{-- Example: brickReceiver('{"id":"requestPushDeviceId"}', '{"name":"iPhone","deviceId":"b6682166-5070-4dc7-9ab3-05c20dd5c1e9"}') --}}
 
-<script>
+<script type="text/javascript">
     var brickReceiver = function (message, payload) {
         message = JSON.parse(message);
         payload = JSON.parse(payload);
@@ -39,7 +39,7 @@
     @endif
 
     @if (! $brickManager->isAndroid())
-    $(function () {
+    window.addEventListener('load', function () {
         $(document).on('click', '.js-brick-file', function (e) {
             $(this).removeAttr('target');
 
@@ -78,6 +78,6 @@
         if ($autofocus.length) {
             window.scrollTo(0, $autofocus.offset().top - 100);
         }
-    });
+    }, false);
     @endif
 </script>
