@@ -33,7 +33,7 @@ class BrickManager
 
     public function version()
     {
-        return Str::endsWith(request()->header('User-Agent'), '2.0') ? static::VERSION_20 : static::VERSION_10;
+        return Str::contains(request()->header('User-Agent'), '2.') ? static::VERSION_20 : static::VERSION_10;
     }
 
     public function isAndroid(): bool
