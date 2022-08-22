@@ -16,13 +16,25 @@
 
         postData = {message: message, payload: payload, '_token': '{{ csrf_token() }}'};
 
-        $.post('/brick/receiver', postData)
-            .fail(function (xhr, status, error) {
-                if (xhr.statusText === 'abort') {
+        fetch('/brick/receiver', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData),
+        })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response;
+            })
+            .catch((error) => {
+                if (error.name === "AbortError") {
                     return;
                 }
 
-                console.error('Something went wrong: ' + xhr.responseText);
+                console.error('Something went wrong: ' + error);
             });
 
         return postData;
@@ -39,44 +51,88 @@
     @endif
 
     @if (! $brickManager->isAndroid())
-    window.addEventListener('load', function () {
-        $(document).on('click', '.js-brick-file', function (e) {
-            $(this).removeAttr('target');
+    // https://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript#:~:text=live()%20is%20deprecated%20for,please%20use%20the%20last%20one.
+    function live(eventType, elementId, cb) {
+        document.addEventListener(eventType, function (event) {
+            var el = event.target
+                , found;
 
-            var url = $(this).attr('href');
+            while (el && !(found = el.id === elementId)) {
+                el = el.parentElement;
+            }
+
+            if (found) {
+                cb.call(el, event);
+            }
+        });
+    }
+
+    document.addEventListener('click', e => {
+        if (e.target.closest('.js-brick-file') && !e.bound) {
+            e.bound = true;
+            e.preventDefault();
+
+            var element = e.target;
+
+            element.removeAttribute('target');
+
+            var url = element.getAttribute('href');
             if (!/^[a-z][a-z0-9+.-]*:/.test(url)) {
                 url = location.protocol + '//' + location.host + '/' + url.replace(/^\//g, '');
             }
 
-            $.get(url, function (data) {
-                if (!data.url) {
-                    alert('Unable to open file: URL unknown');
-                    return;
-                }
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response;
+                })
+                .then((response) => response.json())
+                .then(function (data) {
+                    console.log(data);
+                    if (!data.url) {
+                        throw Error('Unable to open file: URL unknown');
+                    }
 
-                if (!data.filename) {
-                    alert('Unable to open file: Filename unknown');
-                    return;
-                }
+                    if (!data.filename) {
+                        throw Error('Unable to open file: Filename unknown');
+                    }
 
-                if (typeof webkit === "undefined") {
-                    alert('Unable to open file: webkit bridge not setup');
-                    return;
-                }
+                    if (typeof webkit === "undefined") {
+                        throw Error('Unable to open file: webkit bridge not setup');
+                    }
 
-                webkit.messageHandlers.openFile.postMessage({
-                    'id': 'openFile',
-                    'filename': data.filename,
-                    'url': data.url
+                    webkit.messageHandlers.openFile.postMessage({
+                        'id': 'openFile',
+                        'filename': data.filename,
+                        'url': data.url
+                    });
+                })
+                .catch((error) => {
+                    if (error.name === "AbortError") {
+                        return;
+                    }
+
+                    console.error(error);
+                    alert(error);
                 });
-            }, 'json');
+        }
+    });
 
-            return false;
-        });
-
-        var $autofocus = $(':input[autofocus]');
-        if ($autofocus.length) {
-            window.scrollTo(0, $autofocus.offset().top - 100);
+    window.addEventListener('load', function () {
+        var autofocus = document.querySelector('[autofocus]');
+        if (autofocus) {
+            window.scroll({
+                top: autofocus.getBoundingClientRect().top + window.scrollY,
+                behavior: 'smooth',
+            });
         }
     }, false);
     @endif

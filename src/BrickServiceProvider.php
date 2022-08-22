@@ -36,9 +36,7 @@ class BrickServiceProvider extends IlluminateServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/brick.php', 'brick');
 
-        $this->app->bind('brick.user', function () {
-            return auth()->check() ? auth()->user() : null;
-        });
+        $this->app->bind('brick.user', fn() => auth(config('brick.user_guard'))->check() ? auth(config('brick.user_guard'))->user() : null);
     }
 
     private function registerRoutes()
