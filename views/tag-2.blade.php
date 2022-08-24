@@ -54,13 +54,13 @@
         if (e.target.closest('.js-brick-file') && !e.bound) {
             e.bound = true;
 
+            var element = e.target;
+
             element.removeAttribute('target');
             element.removeAttribute('rel');
 
             @if ($brickManager->isIos())
             e.preventDefault();
-
-            var element = e.target;
 
             var url = element.getAttribute('href');
             if (!/^[a-z][a-z0-9+.-]*:/.test(url)) {

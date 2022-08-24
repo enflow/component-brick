@@ -1,6 +1,6 @@
 {
     "name": "enflow/component-brick",
-    "description": "Brick package that will add utils to make it easier to work together with the phonegap implemenation.",
+    "description": "The enflow/component-brick package provides the logic to connect to the iOS and Android side of the Brick framework.",
     "license": "MIT",
     "authors": [
         {
