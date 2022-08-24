@@ -52,6 +52,8 @@
 
     document.addEventListener('click', e => {
         if (e.target.closest('.js-brick-file') && !e.bound) {
+            e.preventDefault();
+
             e.bound = true;
 
             var element = e.target;
@@ -59,8 +61,12 @@
             element.removeAttribute('target');
             element.removeAttribute('rel');
 
-            @if ($brickManager->isIos())
-            e.preventDefault();
+            @if ($brickManager->isAndroid())
+            // Legacy versions of Brick don't support the 'openFile' JS action. We use a normal download for that.
+            if (typeof brick.openFile === undefined) {
+                return;
+            }
+            @endif
 
             var url = element.getAttribute('href');
             if (!/^[a-z][a-z0-9+.-]*:/.test(url)) {
@@ -82,7 +88,6 @@
                 })
                 .then((response) => response.json())
                 .then(function (data) {
-                    console.log(data);
                     if (!data.url) {
                         throw Error('Unable to open file: URL unknown');
                     }
@@ -91,6 +96,13 @@
                         throw Error('Unable to open file: Filename unknown');
                     }
 
+                    @if ($brickManager->isAndroid())
+                    if (typeof brick === "undefined") {
+                        throw Error('Unable to open file: brick bridge not setup');
+                    }
+
+                    brick.openFile(data.url, data.filename);
+                    @else
                     if (typeof webkit === "undefined") {
                         throw Error('Unable to open file: webkit bridge not setup');
                     }
@@ -100,6 +112,7 @@
                         'filename': data.filename,
                         'url': data.url
                     });
+                    @endif
                 })
                 .catch((error) => {
                     if (error.name === "AbortError") {
@@ -109,7 +122,6 @@
                     console.error(error);
                     alert(error);
                 });
-            @endif
         }
     });
 
