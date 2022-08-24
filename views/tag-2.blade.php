@@ -50,31 +50,17 @@
     @endif
     @endif
 
-    @if (! $brickManager->isAndroid())
-    // https://stackoverflow.com/questions/9106329/implementing-jquerys-live-binder-with-native-javascript#:~:text=live()%20is%20deprecated%20for,please%20use%20the%20last%20one.
-    function live(eventType, elementId, cb) {
-        document.addEventListener(eventType, function (event) {
-            var el = event.target
-                , found;
-
-            while (el && !(found = el.id === elementId)) {
-                el = el.parentElement;
-            }
-
-            if (found) {
-                cb.call(el, event);
-            }
-        });
-    }
-
     document.addEventListener('click', e => {
         if (e.target.closest('.js-brick-file') && !e.bound) {
             e.bound = true;
+
+            element.removeAttribute('target');
+            element.removeAttribute('rel');
+
+            @if ($brickManager->isIos())
             e.preventDefault();
 
             var element = e.target;
-
-            element.removeAttribute('target');
 
             var url = element.getAttribute('href');
             if (!/^[a-z][a-z0-9+.-]*:/.test(url)) {
@@ -123,9 +109,11 @@
                     console.error(error);
                     alert(error);
                 });
+            @endif
         }
     });
 
+    @if ($brickManager->isIos())
     window.addEventListener('load', function () {
         var autofocus = document.querySelector('[autofocus]');
         if (autofocus) {
