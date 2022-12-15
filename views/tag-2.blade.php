@@ -56,7 +56,7 @@
 
             e.bound = true;
 
-            var element = e.target;
+            var element = e.target.closest('a');
 
             element.removeAttribute('target');
             element.removeAttribute('rel');
@@ -69,6 +69,10 @@
             @endif
 
             var url = element.getAttribute('href');
+            if (!url) {
+                throw Error('No URL found for file.');
+            }
+
             if (!/^[a-z][a-z0-9+.-]*:/.test(url)) {
                 url = location.protocol + '//' + location.host + '/' + url.replace(/^\//g, '');
             }
@@ -120,7 +124,7 @@
                     }
 
                     console.error(error);
-                    alert(error);
+                    alert('Unable to fetch file: ' + error);
                 });
         }
     });
