@@ -21,7 +21,7 @@ This package includes a migration that needs to be published. This table (`brick
 This package adds the `BrickManager` class to the container and injects a `$brickManager` variable to all views. This variable can be used to render the required tag automatically. We recommend adding this to the end of the master template, just before the `</body>`:
 `{!! $brickManager->tags() !!}`
 
-We recommend viewing trough the files in this package to understand it's usage and logic.
+We recommend viewing through the files in this package to understand it's usage and logic.
 
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
