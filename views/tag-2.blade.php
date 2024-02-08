@@ -86,7 +86,7 @@
             })
                 .then(function (response) {
                     if (!response.ok) {
-                        throw Error(response.statusText);
+                        throw Error('Errored with code ' + response.status + ', text: ' + (response.statusText ? response.statusText : '(no text)'));
                     }
                     return response;
                 })
