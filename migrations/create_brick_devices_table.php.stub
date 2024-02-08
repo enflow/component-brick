@@ -11,9 +11,8 @@ class CreateBrickDevicesTable extends Migration
     public function up()
     {
         Schema::create('brick_devices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
             $table->string('device_id')->unique();
             $table->timestamps();
         });
